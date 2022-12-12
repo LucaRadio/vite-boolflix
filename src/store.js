@@ -5,7 +5,9 @@ export const properties = reactive({
     searchText:'',
     movies:[],
     series:[],
-    pageSelected: 1
+    pageSelected: 1,
+    languageSelected:"it-IT"
+
 })
 
 export function fetchSearchedRequest(){
@@ -14,7 +16,8 @@ export function fetchSearchedRequest(){
         params:{
             api_key: "25efb6124fbd30cb0ddc75796834305a",
             query: properties.searchText,
-            page: properties.pageSelected
+            page: properties.pageSelected,
+            language: properties.languageSelected     
         }
     })
     .then(resp=>{
@@ -26,6 +29,7 @@ export function fetchSearchedRequest(){
             api_key: "25efb6124fbd30cb0ddc75796834305a",
             query: properties.searchText,
             page: properties.pageSelected,
+            language: properties.languageSelected 
         }
     })
     .then(resp=>{

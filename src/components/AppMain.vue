@@ -1,7 +1,7 @@
 <template>
   <section class="movies">
     <ul class="list-group">
-        <li class="list-group-item" v-for="movie in movies">{{movie}}</li>
+        <AppCard :movies="properties.movies"/>
     </ul>
 
   </section>
@@ -9,11 +9,16 @@
 </template>
 
 <script>
-export default {
-    props:{
-        movies:Array
-    }
+import { properties } from '../store';
+import AppCard from './AppCard.vue';
 
+export default {
+    components: { AppCard },
+    data(){
+      return{
+        properties
+      }
+    }
 }
 </script>
 

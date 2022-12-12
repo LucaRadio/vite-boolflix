@@ -10,9 +10,6 @@ export default{
     }
   },
 
-  created(){
-    // fetchSearchedRequest();
-  },
   methods:{
     doSearch(){
       fetchSearchedRequest();
@@ -27,7 +24,7 @@ export default{
   <div class="container">
 
     <AppHeader @searchProcessing="doSearch"/>
-    <AppMain :movies="properties.movies"/>
+    <AppMain/>
 
   </div>
 
