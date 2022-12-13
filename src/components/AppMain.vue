@@ -12,12 +12,16 @@
 import { properties } from '../store';
 import AppCard from './AppCard.vue';
 
+
 export default {
     components: { AppCard },
     data(){
       return{
         properties
       }
+    },
+    methods:{
+      
     }
 }
 </script>
