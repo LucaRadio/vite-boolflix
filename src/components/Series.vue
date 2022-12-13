@@ -1,9 +1,9 @@
 <template>
-    <div v-if="properties.error" class="alert mx-auto alert-danger w-50">Unable to find a movie with {{properties.searchText}} as title.</div>
-<div class="alert mx-auto alert-danger w-50">Unable to find a TV serie with {{properties.searchText}} as title</div>
+    <div v-if="properties.errorSeries" class="alert mx-auto my-3 alert-danger w-50">Unable to find a Tv Series with {{properties.searchText}} as title. Reload Page or go back..</div>
+
     <div class="col d-flex" v-for="serie in series">
 
-    <div class="card w-100 overflow-auto position-relative">
+    <div class="card w-100 overflow-auto text-white position-relative">
         <img :src="typeImgFetch(serie)" class="card-img-top " alt="Not Image for this film">
         <div class="card-body text-white">
             <h5 class=" card-title">
@@ -17,8 +17,8 @@
 <p class="ms-3" v-if="serie.overview"><span class="fw-bold text-primary">Overview :</span>{{serie.overview}}</p>
     <p class="ms-3" v-else>There isn't an italian overview on this serie</p>
 
-            <h4 class="text-primary card-text" v-if="serie.vote_average"> Vote: <i class="fa-solid fa-star"
-                    v-for="n in gradeModify(serie)"></i></h4>
+            <h5 class="text-primary card-text" v-if="serie.vote_average"> Vote: <i class="fa-solid fa-star"
+                    v-for="n in gradeModify(serie)"></i></h5>
             <h6 class="text-primary card-text" v-else> Vote: There ins't enough grades to establish an average grade
             </h6>
         </div>
@@ -58,4 +58,7 @@ export default {
 <style lang="scss">
 
 </style>
+
+
+
 

@@ -6,11 +6,7 @@
 
     </form>
 
-    <div v-if="properties.movies.length || properties.movies.length" class="input-group justify-content-center">
-        <button @click.stop="changePage(false)" class="btn btn-info">Prev</button>
-        <div class="bg-secondary text-white py-2 px-3">{{properties.pageSelected}}</div>
-        <button @click.stop="changePage(true)" class="btn btn-info">Next</button>
-    </div>
+
 
 
 </template>
@@ -24,6 +20,7 @@ export default {
     data(){
         return{
             properties,
+            savedWord:''
 
         }
     },
@@ -31,22 +28,7 @@ export default {
         searchSend(){
             this.$emit("searchProcessing",properties.searchText)
         },
-        changePage(increment){
-            if(increment){
-
-                properties.pageSelected ++;
-                fetchSearchedRequest()
-            }else{
-                if(properties.pageSelected>1){
-                    properties.pageSelected--;
-                    fetchSearchedRequest()
-                    
-                }else{
-                    properties.pageSelected=1
-                    fetchSearchedRequest()
-                }
-            }
-        }
+        
     }
 }
 </script>

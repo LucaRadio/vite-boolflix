@@ -7,7 +7,7 @@ export default{
   components:{ AppHeader, AppCard, TheHeader },
   data(){
     return {
-      properties
+      properties,
     }
   },
 
@@ -33,6 +33,14 @@ export default{
 </template>
 
 <style lang="scss">
+.row{
+  overflow: auto;
+  flex-wrap: nowrap;
+}
+.card{
+  min-height: 300px;
+  background-color: rgba($color: #000000, $alpha: 0.8);
+}
 
 .card:hover .card-body{
         display: block;

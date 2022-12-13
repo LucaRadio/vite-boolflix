@@ -5,45 +5,52 @@ export const properties = reactive({
     searchText:'',
     movies:[],
     series:[],
-    pageSelected: 1,
+    pageSelectedMovies: 1,
+    pageSelectedSeries: 1,
     languageSelected:"it-IT",
-    error:false
+    errorMovies:false,
+    errorSeries:false
 
 })
 
 export function fetchSearchedRequest(){
-    properties.error=false
+    properties.errorMovies=false
+    properties.errorSeries=false
     const mainUrl = "https://api.themoviedb.org/3"
     axios.get(mainUrl + "/search/movie" ,{
         params:{
             api_key: "25efb6124fbd30cb0ddc75796834305a",
             query: properties.searchText,
-            page: properties.pageSelected,
+            page: properties.pageSelectedMovies,
             language: properties.languageSelected     
         }
     })
     .then(resp=>{
-        console.log(resp.data.results);
         properties.movies=resp.data.results
+        if (properties.movies.length === 0){
+            properties.errorMovies=true
+        }
     })
     .catch(()=>{
-        properties.error= true
+        properties.errorMovies= true
     })
 
     axios.get(mainUrl + "/search/tv" ,{
         params:{
             api_key: "25efb6124fbd30cb0ddc75796834305a",
             query: properties.searchText,
-            page: properties.pageSelected,
+            page: properties.pageSelectedSeries,
             language: properties.languageSelected 
         }
     })
     .then(resp=>{
-        console.log(resp.data.results);
         properties.series = resp.data.results
+        if (properties.series.length === 0){
+            properties.errorSeries=true
+        }
     })
     .catch(()=>{
-        properties.error=true
+        properties.errorSeries=true
     }
 
     )
@@ -68,4 +75,39 @@ export function typeImgFetch(type) {
 export function gradeModify(type) {
     let typeGradeChanged = Math.ceil(type.vote_average / 2)
     return typeGradeChanged
+}
+
+
+export function changePage(increment,type){
+    if(type){
+        if(increment){
+    
+            properties.pageSelectedMovies++;
+            fetchSearchedRequest()
+        }else{
+            if(properties.pageSelectedMovies>1){
+                properties.pageSelectedMovies--;
+                fetchSearchedRequest()
+                
+            }else{
+                properties.pageSelectedMovies=1
+                fetchSearchedRequest()
+            }
+        }
+
+    }else{
+    if(increment){
+
+        properties.pageSelectedSeries++;
+        fetchSearchedRequest()
+    }else{
+        if(properties.pageSelectedSeries>1){
+            properties.pageSelectedSeries--;
+            fetchSearchedRequest()
+            
+        }else{
+            properties.pageSelectedSeries=1
+            fetchSearchedRequest()
+        }
+    }}
 }

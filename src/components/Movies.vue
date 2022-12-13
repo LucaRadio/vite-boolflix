@@ -1,6 +1,6 @@
 <template>
-<div v-if="properties.error" class="alert mx-auto alert-danger w-50">Unable to find a movie with {{properties.searchText}} as title</div>
-    <div class="alert mx-auto alert-danger w-50">Unable to find a movie with {{properties.searchText}} as title</div>
+    
+<div v-if="properties.errorMovies" class="alert mx-auto my-3 alert-danger w-50">Unable to find a movie with {{properties.searchText}} as title. Reload Page or go back...</div>
     <div class="col d-flex" v-for="movie in movies">
 
         <div class="card w-100 overflow-auto position-relative">
@@ -53,3 +53,4 @@ export default {
 <style>
 
 </style>
+
