@@ -18,9 +18,26 @@
 
                 <h5 class="text-primary card-text" v-if="movie.vote_average"> Vote: <i
                         class="fa-solid fa-star text-warning" v-for="n in gradeModify(movie)"></i></h5>
-                <h6 class="text-primary card-text" v-else> Vote: There ins't enough grades to establish an average
+                <h6 class="text-primary card-text mb-3" v-else> Vote: There ins't enough grades to establish an average
                     grade
                 </h6>
+                <button @click="fetchCast('movie', movie, movie.id)" class="btn btn-info p-1">View Cast</button>
+                <ul>
+                    <ul>
+                        <li v-if="movie.cast" v-for="actor in movie.cast">
+                            <div class="div">
+                                <span class="text-danger">{{ actor.original_name
+                                }}
+                                </span>
+                                <span v-if="actor.character"> as{{
+                                        actor.character
+                                }}</span>
+                            </div>
+                        </li>
+
+
+                    </ul>
+                </ul>
             </div>
         </div>
 
@@ -31,7 +48,7 @@
 </template>
 
 <script>
-import { properties, typeImgFetch, flagInsert, gradeModify } from '../store';
+import { properties, typeImgFetch, flagInsert, gradeModify, fetchCast } from '../store';
 import * as countriesFlag from 'country-flag-icons/string/1x1';
 import { countries } from 'country-flag-icons';
 export default {
@@ -49,7 +66,9 @@ export default {
     methods: {
         typeImgFetch,
         flagInsert,
-        gradeModify
+        gradeModify,
+        fetchCast
+
     }
 
 }

@@ -1,4 +1,5 @@
 <script>
+import axios from 'axios';
 import AppHeader from './components/AppHeader.vue';
 import AppRows from './components/AppRows.vue'
 import { fetchSearchedRequest, properties } from './store';
@@ -18,8 +19,10 @@ export default {
 
         fetchSearchedRequest();
       }
-    }
-  }
+    },
+
+
+  },
 }
 
 </script>
@@ -66,5 +69,10 @@ export default {
 
 img {
   height: 100%;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
 }
 </style>

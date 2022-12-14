@@ -1,3 +1,4 @@
+
 import axios from "axios";
 import { reactive } from "vue";
 
@@ -11,11 +12,13 @@ export const properties = reactive({
     errorMovies: false,
     errorSeries: false,
     errorLastPageMovies: false,
-    savedWord: ''
+    savedWord: '',
+    showButton: false,
 
 })
 
 export function fetchSearchedRequest() {
+    properties.showButton = true;
     properties.errorMovies = false;
     properties.errorSeries = false;
     properties.errorLastPageMovies = false;
@@ -72,6 +75,9 @@ export function flagInsert(type, countriesFlag) {
     if (original_language === "EN") {
         original_language = "US"
     }
+    if (original_language === "JA") {
+        original_language = "JP"
+    }
     return countriesFlag[`${original_language}`]
 }
 
@@ -94,36 +100,45 @@ export function gradeModify(type) {
 
 
 export function changePage(increment, type) {
-    if (type) {
-        if (increment) {
-            if (properties.movies.length) {
-                properties.pageSelectedMovies++;
-                fetchSearchedRequest()
-            }
-        } else {
-            if (properties.pageSelectedMovies > 1) {
-                properties.pageSelectedMovies--;
-                fetchSearchedRequest()
 
-            } else {
-                properties.pageSelectedMovies = 1
-            }
+    const key = "pageSelected" + ((type.charAt(0)).toUpperCase() + type.slice(1));
+
+    if (increment) {
+        if (properties[type].length) {
+            properties[key]++;
+            fetchSearchedRequest();
         }
-
     } else {
-        if (increment) {
-            if (properties.series.length) {
-                properties.pageSelectedSeries++;
-                fetchSearchedRequest()
-            }
+        if (properties[key] > 1) {
+            properties[key]--;
+            fetchSearchedRequest()
         } else {
-            if (properties.pageSelectedSeries > 1) {
-                properties.pageSelectedSeries--;
-                fetchSearchedRequest()
-
-            } else {
-                properties.pageSelectedSeries = 1
-            }
+            properties[key] = 1;
         }
     }
+}
+
+export function fetchCast(type, typeObj, id) {
+    axios.get(`https://api.themoviedb.org/3/${type}/${id}/credits`, {
+        params: {
+            api_key: "25efb6124fbd30cb0ddc75796834305a"
+        }
+    })
+        .then(resp => {
+            const cast = []
+            if (resp.data.cast.length) {
+                for (let i = 0; i < 5; i++) {
+                    if (resp.data.cast[i] != undefined) {
+                        cast.push(resp.data.cast[i])
+
+                    }
+                }
+
+                return typeObj.cast = cast
+            } else {
+                alert("There's not a cast in our database for this " + type)
+            }
+
+        })
+
 }
