@@ -1,10 +1,15 @@
 <template>
-    <form @submit.prevent="searchSend" class="input-group mx-auto my-3 ">
-        <input type="text" class="form-control input-group-item" placeholder="Search Here..." v-model="properties.searchText">
 
-        <button class="btn btn-warning">Search</button>
+    <header class="d-flex align-items-center justify-content-center">
+        <h1 class="ms-3 display-4 text-center logo text-warning me-auto">BoolFlix</h1>
+        <form @submit.prevent="searchSend" class="input-group my-3 me-3">
+            <input type="text" class="form-control input-group-item" placeholder="Search Here..."
+                v-model="properties.searchText">
 
-    </form>
+            <button class="btn btn-warning">Search</button>
+
+        </form>
+    </header>
 
 
 
@@ -12,33 +17,40 @@
 </template>
 
 <script>
-import {fetchSearchedRequest, properties} from '../store';
+import { properties } from '../store';
 export default {
     emits:
-      ["searchProcessing"]
+        ["searchProcessing"]
     ,
-    data(){
-        return{
+    data() {
+        return {
             properties,
-            savedWord:''
 
         }
     },
-    methods:{
-        searchSend(){
-            this.$emit("searchProcessing",properties.searchText)
+    methods: {
+        searchSend() {
+            properties.savedWord = properties.searchText
+            properties.pageSelectedMovies = 1;
+            properties.pageSelectedSeries = 1;
+            this.$emit("searchProcessing", properties.savedWord)
         },
-        
+
     }
 }
 </script>
 
 <style lang="scss">
-@use "@fortawesome/fontawesome-free/css/all.min.css";
-form{
-    width: 300px !important; 
+form {
+    width: 300px !important;
 }
-form>input.form-control{
+
+form>input.form-control {
     width: auto;
+}
+
+header {
+    background-color: black;
+    height: 100px;
 }
 </style>
