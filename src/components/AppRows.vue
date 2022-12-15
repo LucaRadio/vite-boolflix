@@ -2,7 +2,7 @@
     <div v-if="!properties.showButton" class="intro">
 
         <h1 class="text-danger mt-4">Welcome to BoolFlix...</h1>
-        <p class="fs-4 text-white">Search any work and I'll give you all information you need! ( If there are, of
+        <p class="fs-4 text-white">Search any word and I'll give you all information you need! ( If there are, of
             course !!! )
         </p>
 
