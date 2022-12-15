@@ -2,7 +2,7 @@
 
     <div v-if="!properties.errorLastPageSeries" class="col d-flex" v-for="singleSerie in series">
 
-        <div class="card w-100 overflow-auto text-white position-relative">
+        <div @mouseleave="resetCast(singleSerie)" class="card w-100 overflow-auto text-white position-relative">
             <img :src="typeImgFetch(singleSerie)" class="card-img-top" alt="Not Image for this serie">
             <div class="card-body text-white overflow-auto">
                 <h5 class="card-title">
@@ -23,13 +23,13 @@
                 </h6>
                 <button @click="fetchCast('tv', singleSerie, singleSerie.id)" class="btn btn-info p-1">View
                     Cast</button>
-                <ul>
+                <ul class="list-unstyled">
                     <li v-if="singleSerie.cast" v-for="actor in singleSerie.cast">
                         <div class="div">
                             <span class="text-danger">{{ actor.name
                             }}
                             </span>
-                            <span v-if="actor.character"> as{{
+                            <span v-if="actor.character"> as {{
                                     actor.character
                             }}</span>
                         </div>
@@ -45,7 +45,7 @@
 
 
 <script>
-import { fetchCast, properties, typeImgFetch, flagInsert, gradeModify } from '../store';
+import { resetCast, fetchCast, properties, typeImgFetch, flagInsert, gradeModify } from '../store';
 import * as countriesFlag from 'country-flag-icons/string/1x1';
 import { countries } from 'country-flag-icons';
 export default {
@@ -64,7 +64,9 @@ export default {
         typeImgFetch,
         flagInsert,
         gradeModify,
-        fetchCast
+        fetchCast,
+        resetCast
+
     }
 
 }

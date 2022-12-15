@@ -1,9 +1,9 @@
 <template>
 
-    <header class="d-flex align-items-center justify-content-center">
-        <h1 class="ms-3 display-4 text-center logo text-warning me-auto">BoolFlix</h1>
-        <form @submit.prevent="searchSend" class="input-group my-3 me-3">
-            <input type="text" class="form-control input-group-item" placeholder="Search Here..."
+    <header class="d-flex align-items-center justify-content-between">
+        <h1 class="ms-3 display-4 text-center logo text-warning">BoolFlix</h1>
+        <form @submit.prevent="searchSend" class="input-group my-3 me-3 flex-nowrap">
+            <input type="text" class="form-control input-group-item w-auto" placeholder="Search Here..."
                 v-model="properties.searchText">
 
             <button class="btn btn-warning">Search</button>
@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import { properties } from '../store';
+import { properties, fetchGenre } from '../store';
 export default {
     emits:
         ["searchProcessing"]
@@ -29,13 +29,17 @@ export default {
         }
     },
     methods: {
+        fetchGenre,
         searchSend() {
             properties.savedWord = properties.searchText
             properties.pageSelectedMovies = 1;
             properties.pageSelectedSeries = 1;
             this.$emit("searchProcessing", properties.savedWord)
-        },
+        }
 
+    },
+    mounted() {
+        this.fetchGenre()
     }
 }
 </script>
@@ -43,6 +47,11 @@ export default {
 <style lang="scss">
 form {
     width: 300px !important;
+
+    select {
+        min-width: 200px;
+        flex-grow: 1;
+    }
 }
 
 form>input.form-control {

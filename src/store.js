@@ -4,8 +4,8 @@ import { reactive } from "vue";
 
 export const properties = reactive({
     searchText: '',
-    movies: [],
-    series: [],
+    // movies: [],
+    // series: [],
     pageSelectedMovies: 1,
     pageSelectedSeries: 1,
     languageSelected: "it-IT",
@@ -14,6 +14,11 @@ export const properties = reactive({
     errorLastPageMovies: false,
     savedWord: '',
     showButton: false,
+    genresMoviesList: [],
+    genresSeriesList: [],
+    genresMoviesSelected: 'All',
+    genresSeriesSelected: 'All',
+    // genreSelectedId: ''
 
 })
 
@@ -29,7 +34,8 @@ export function fetchSearchedRequest() {
             api_key: "25efb6124fbd30cb0ddc75796834305a",
             query: properties.searchText,
             page: properties.pageSelectedMovies,
-            language: properties.languageSelected
+            language: properties.languageSelected,
+            // genre_ids: 27
         }
     })
         .then(resp => {
@@ -50,7 +56,8 @@ export function fetchSearchedRequest() {
             api_key: "25efb6124fbd30cb0ddc75796834305a",
             query: properties.searchText,
             page: properties.pageSelectedSeries,
-            language: properties.languageSelected
+            language: properties.languageSelected,
+            // genre_ids: properties.genresIdSelected
         }
     })
         .then(resp => {
@@ -141,4 +148,39 @@ export function fetchCast(type, typeObj, id) {
 
         })
 
+}
+
+export function resetCast(type) {
+    type.cast = []
+}
+
+export function fetchGenre() {
+    axios.get('https://api.themoviedb.org/3/genre/movie/list', {
+        params: {
+            api_key: "25efb6124fbd30cb0ddc75796834305a"
+        }
+    })
+        .then(resp => {
+            properties.genresMoviesList = resp.data.genres
+        })
+
+
+
+    axios.get('https://api.themoviedb.org/3/genre/tv/list', {
+        params: {
+            api_key: "25efb6124fbd30cb0ddc75796834305a"
+        }
+    })
+        .then(resp => {
+            properties.genresSeriesList = resp.data.genres
+        })
+}
+
+export function fetchIdGenre() {
+    properties.genresMoviesList.forEach(item => {
+        // console.log(item);
+        if (item.name.toLowerCase() === properties.genresMoviesSelected.toLowerCase()) {
+            return properties.genreSelectedId = item.id
+        }
+    })
 }

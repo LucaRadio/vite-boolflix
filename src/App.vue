@@ -1,5 +1,4 @@
 <script>
-import axios from 'axios';
 import AppHeader from './components/AppHeader.vue';
 import AppRows from './components/AppRows.vue'
 import { fetchSearchedRequest, properties } from './store';
@@ -74,5 +73,40 @@ img {
   right: 0;
   bottom: 0;
   left: 0;
+}
+
+/*********************************************************
+Scrollbar Test
+Scrollbar Test
+Scrollbar Test
+Scrollbar Test
+Scrollbar Test
+Scrollbar Test
+Scrollbar Test
+Scrollbar Test
+Scrollbar Test
+***************************************************************/
+
+
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #888;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #f1f1f1;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }
 </style>

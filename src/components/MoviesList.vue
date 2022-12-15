@@ -2,7 +2,7 @@
 
     <div v-if="!properties.errorLastPageMovies" class="col d-flex" v-for="movie in movies">
 
-        <div class="card w-100 overflow-auto position-relative">
+        <div @mouseleave="resetCast(movie)" class="card w-100 overflow-auto position-relative">
             <img :src="typeImgFetch(movie)" class="card-img-top" alt="Not Image for this film">
             <div class="card-body text-white overflow-auto">
                 <h5 class="card-title">
@@ -22,21 +22,19 @@
                     grade
                 </h6>
                 <button @click="fetchCast('movie', movie, movie.id)" class="btn btn-info p-1">View Cast</button>
-                <ul>
-                    <ul>
-                        <li v-if="movie.cast" v-for="actor in movie.cast">
-                            <div class="div">
-                                <span class="text-danger">{{ actor.original_name
-                                }}
-                                </span>
-                                <span v-if="actor.character"> as{{
-                                        actor.character
-                                }}</span>
-                            </div>
-                        </li>
+                <ul class="list-unstyled">
+                    <li v-if="movie.cast" v-for="actor in movie.cast">
+                        <div class="div">
+                            <span class="text-danger">{{ actor.original_name
+                            }}
+                            </span>
+                            <span v-if="actor.character"> as {{
+                                    actor.character
+                            }}</span>
+                        </div>
+                    </li>
 
 
-                    </ul>
                 </ul>
             </div>
         </div>
@@ -48,7 +46,7 @@
 </template>
 
 <script>
-import { properties, typeImgFetch, flagInsert, gradeModify, fetchCast } from '../store';
+import { resetCast, properties, typeImgFetch, flagInsert, gradeModify, fetchCast } from '../store';
 import * as countriesFlag from 'country-flag-icons/string/1x1';
 import { countries } from 'country-flag-icons';
 export default {
@@ -67,7 +65,8 @@ export default {
         typeImgFetch,
         flagInsert,
         gradeModify,
-        fetchCast
+        fetchCast,
+        resetCast
 
     }
 

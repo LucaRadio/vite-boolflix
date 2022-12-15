@@ -10,16 +10,30 @@
     <!-- FILM -->
 
     <div v-if="properties.errorMovies" class="alert mx-auto my-3 alert-danger w-50">Unable to find a movie that contains
-        "{{ properties.savedWord }}" in the title. Reload page or search another film</div>
+        "{{ properties.savedWord }}" in the title. Search another film</div>
 
 
     <div v-if="!properties.errorMovies" class="movies-container">
-        <h1 v-if="properties.showButton" class="display-1 text-primary text-center my-4">Movies</h1>
-        <div v-if="properties.showButton" class="input-group justify-content-center">
-            <button @click.stop="changePage(false, 'movies')" class="btn btn-info">Prev</button>
-            <div class="bg-secondary text-white py-2 px-3">{{ properties.pageSelectedMovies }}</div>
-            <button @click.stop="changePage(true, 'movies')" class="btn btn-info">Next</button>
+        <div v-if="properties.showButton" class="show-container">
+            <h1 class="display-1 text-primary text-center my-4">Movies</h1>
+            <div class="input-group justify-content-center">
+                <button @click.stop="changePage(false, 'movies')" class="btn btn-info">Prev</button>
+                <div class="bg-secondary text-white py-2 px-3">{{ properties.pageSelectedMovies }}</div>
+                <button @click.stop="changePage(true, 'movies')" class="btn btn-info">Next</button>
+            </div>
+
+            <!-- <form class="input-group">
+                <select v-model="properties.genresMoviesSelected" class="input-group-item form-select shadow-none"
+                    name="movie">
+                    <option :selected="properties.genresMoviesSelected">All</option>
+                    <option v-for="singlegenre in properties.genresMoviesList">{{ singlegenre.name }}</option>
+                </select>
+                <button class="btn btn-outline-warning input-group-item">Filter</button>
+            </form> -->
+
         </div>
+
+
         <div class="row row-cols-lg-5 row-cols-md-4 row-cols-sm-2 flex-column-xs g-3 my-3 flex-no-wrap">
             <Movies :movies="properties.movies" />
         </div>
@@ -33,17 +47,34 @@
 
     <div v-if="properties.errorSeries" class="alert mx-auto my-3 alert-danger w-50">Unable to find a Tv Series that
         contains
-        "{{ properties.savedWord }}" in the title. Reload page or search another serie</div>
+        "{{ properties.savedWord }}" in the title. Search another serie</div>
 
 
     <div v-if="!properties.errorSeries" class="series-container">
 
-        <h1 v-if="properties.showButton" class=" display-1 text-primary text-center my-4">Series</h1>
-        <div v-if="properties.showButton" class="input-group justify-content-center">
-            <button @click.stop="changePage(false, 'series')" class="btn btn-info">Prev</button>
-            <div class="bg-secondary text-white py-2 px-3">{{ properties.pageSelectedSeries }}</div>
-            <button @click.stop="changePage(true, 'series')" class="btn btn-info">Next</button>
+        <div v-if="properties.showButton" class="show-container">
+            <h1 class=" display-1 text-primary text-center my-4">Series</h1>
+            <div class="input-group justify-content-center">
+                <button @click.stop="changePage(false, 'series')" class="btn btn-info">Prev</button>
+                <div class="bg-secondary text-white py-2 px-3">{{ properties.pageSelectedSeries }}</div>
+                <button @click.stop="changePage(true, 'series')" class="btn btn-info">Next</button>
+            </div>
+            <!-- <form class="input-group">
+                <select v-model="properties.genresSeriesSelected" class="input-group-item form-select shadow-none"
+                    name="serie">
+                    <option>{{ properties.genresSeriesSelected }}</option>
+                    <option v-for="singlegenre in properties.genresSeriesList">{{ singlegenre.name }}</option>
+                </select>
+                <button class="btn btn-outline-warning input-group-item">Filter</button>
+            </form> -->
         </div>
+
+
+
+
+
+
+
         <div class="row row-cols-lg-5 row-cols-md-4 row-cols-sm-2 g-3 my-3">
             <Series :series="properties.series" />
         </div>
@@ -58,7 +89,7 @@
 </template>
 
 <script>
-import { properties, changePage } from '../store';
+import { fetchGenre, properties, changePage, fetchSearchedRequest } from '../store';
 import Movies from './MoviesList.vue';
 import Series from './SeriesList.vue';
 
@@ -76,6 +107,17 @@ export default {
     },
     methods: {
         changePage,
+        fetchGenre,
+        // filter(type) {
+        //     const key = "genres" + ((type.charAt(0)).toUpperCase() + type.slice(1)) + "Selected";
+        //     if (properties[key] === "All") {
+        //         properties[key] = ''
+        //     } else {
+        //         fetchIdGenre();
+        //         fetchSearchedRequest()
+        //     }
+
+        // }
 
     }
 
