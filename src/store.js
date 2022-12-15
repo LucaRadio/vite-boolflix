@@ -1,5 +1,6 @@
 
 import axios from "axios";
+import { film } from "fontawesome";
 import { reactive } from "vue";
 
 export const properties = reactive({
@@ -107,6 +108,8 @@ export function gradeModify(type) {
 
 
 export function changePage(increment, type) {
+    const row = document.querySelector(".row")
+    row.scrollTo(0, 0)
 
     const key = "pageSelected" + ((type.charAt(0)).toUpperCase() + type.slice(1));
 
@@ -150,7 +153,7 @@ export function fetchCast(type, typeObj, id) {
 
 }
 
-export function resetCast(type) {
+export function reset(type) {
     type.cast = []
 }
 

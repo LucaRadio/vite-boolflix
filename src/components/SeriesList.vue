@@ -2,7 +2,7 @@
 
     <div v-if="!properties.errorLastPageSeries" class="col d-flex" v-for="singleSerie in series">
 
-        <div @mouseleave="resetCast(singleSerie)" class="card w-100 overflow-auto text-white position-relative">
+        <div @mouseleave="reset(singleSerie)" class="card w-100 overflow-auto text-white position-relative">
             <img :src="typeImgFetch(singleSerie)" class="card-img-top" alt="Not Image for this serie">
             <div class="card-body text-white overflow-auto">
                 <h5 class="card-title">
@@ -45,7 +45,7 @@
 
 
 <script>
-import { resetCast, fetchCast, properties, typeImgFetch, flagInsert, gradeModify } from '../store';
+import { reset, fetchCast, properties, typeImgFetch, flagInsert, gradeModify } from '../store';
 import * as countriesFlag from 'country-flag-icons/string/1x1';
 import { countries } from 'country-flag-icons';
 export default {
@@ -65,7 +65,7 @@ export default {
         flagInsert,
         gradeModify,
         fetchCast,
-        resetCast
+        reset
 
     }
 

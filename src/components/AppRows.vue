@@ -2,9 +2,11 @@
     <div v-if="!properties.showButton" class="intro">
 
         <h1 class="text-danger mt-4">Welcome to BoolFlix...</h1>
-        <p class="fs-3 text-white">Search any work and I'll give you all information you need! ( If there are, of
+        <p class="fs-4 text-white">Search any work and I'll give you all information you need! ( If there are, of
             course !!! )
         </p>
+
+        <p class="custom">Meanwhile, here's a list of popular films that you may interest</p>
 
     </div>
     <!-- FILM -->
@@ -84,14 +86,25 @@
         Go back!</div>
 
 
+    <!-- Popular -->
+
+
+    <div v-if="!properties.showButton"
+        class=" flex-wrap row row-cols-lg-5 row-cols-md-4 row-cols-sm-2 flex-column-xs g-3 my-3">
+        <popular :popular="popularList" />
+    </div>
+
+
 
 
 </template>
 
 <script>
-import { fetchGenre, properties, changePage, fetchSearchedRequest } from '../store';
+import axios from 'axios';
+import { fetchGenre, properties, changePage, } from '../store';
 import Movies from './MoviesList.vue';
 import Series from './SeriesList.vue';
+import Popular from './Popular.vue';
 
 export default {
     props: {
@@ -99,10 +112,11 @@ export default {
 
         }
     },
-    components: { Movies, Series },
+    components: { Movies, Series, Popular },
     data() {
         return {
-            properties
+            properties,
+            popularList: []
         }
     },
     methods: {
@@ -119,6 +133,19 @@ export default {
 
         // }
 
+    },
+    created() {
+        axios.get("https://api.themoviedb.org/3/movie/popular", {
+            params: {
+                api_key: "25efb6124fbd30cb0ddc75796834305a",
+                language: properties.languageSelected,
+
+            }
+        })
+            .then(resp => {
+                this.popularList = resp.data.results
+
+            })
     }
 
 
@@ -140,5 +167,12 @@ svg {
 h4,
 h6 {
     text-align: start;
+}
+
+.custom {
+    color: greenyellow;
+    font-weight: bold;
+    font-size: 20px;
+
 }
 </style>

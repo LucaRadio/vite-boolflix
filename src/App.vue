@@ -44,6 +44,8 @@ export default {
 .row {
   overflow: auto;
   flex-wrap: nowrap;
+  padding-bottom: 5px;
+  border-radius: 25px;
 }
 
 .card {
@@ -64,6 +66,10 @@ export default {
   right: 0;
   bottom: 0;
   background-color: rgba($color: #000000, $alpha: 0.8);
+}
+
+.card-body:hover {
+  display: block;
 }
 
 img {
@@ -91,8 +97,9 @@ Scrollbar Test
 
 /* width */
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 7px;
   height: 5px;
+  border-radius: 100px;
 }
 
 /* Track */
